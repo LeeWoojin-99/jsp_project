@@ -1,0 +1,9 @@
+package com.woojin.myapp.service;
+
+import com.woojin.myapp.domain.CommentVO;
+
+public interface CommentService {
+
+	int insert(CommentVO cvo);
+
+}

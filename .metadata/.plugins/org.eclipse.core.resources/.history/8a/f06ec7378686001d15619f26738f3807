@@ -1,0 +1,16 @@
+package com.woojin.myapp.controller;
+
+@Slf4j
+@RequestMapping("/file/*")
+@Controller
+public class FileController {
+	
+	int isOK;
+	@DeleteMapping(value = "{cno}", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> removeDelete(@PathVariable("cno")int cno){
+		isOK = csv.delete(cno);
+		log.info("isOK : "+(isOK>0?"성공":"실패"));
+		return isOK>0? new ResponseEntity<String>("1", HttpStatus.OK): new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+}

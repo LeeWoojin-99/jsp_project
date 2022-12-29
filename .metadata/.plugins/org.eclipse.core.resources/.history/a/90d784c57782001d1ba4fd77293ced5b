@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+<header>
+	<ul class="nav justify-content-center">
+		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+		<li class="nav-item"><a class="nav-link" href="/main">Main</a></li>
+		<li class="nav-item"><a class="nav-link" href="/memberC/register">Register</a></li>
+		<li class="nav-item"><a class="nav-link" href="/memberC/login">Login</a></li>
+	</ul>
+</header>

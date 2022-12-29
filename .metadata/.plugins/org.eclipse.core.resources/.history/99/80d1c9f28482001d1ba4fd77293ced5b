@@ -1,0 +1,12 @@
+package com.woojin.myapp.domain;
+
+public class BoardVO {
+	private int bno;
+	private String title;
+	private String writer;
+	private String content;
+	private String reg_date;
+	private String read_count;
+	
+
+}

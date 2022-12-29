@@ -1,0 +1,125 @@
+package com.woojin.myapp.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.woojin.myapp.domain.BoardDTO;
+import com.woojin.myapp.domain.BoardVO;
+import com.woojin.myapp.domain.FileVO;
+import com.woojin.myapp.handler.FileHandler;
+import com.woojin.myapp.repository.FileDAO;
+import com.woojin.myapp.service.BoardService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequestMapping("/board/*")
+@Controller
+public class BoardController {
+	
+	@Inject
+	private BoardService bsv;
+	
+	@Inject
+	private FileHandler fhd;
+	
+	@Inject
+	private FileDAO fdao;
+	
+	int isOK;
+	
+	@GetMapping("register")
+	public void registerGet() {}
+	
+	@PostMapping("register")
+	public String registerPost(BoardVO bvo, RedirectAttributes reAttr,
+			@RequestParam(name="files", required = false)MultipartFile[] files) {
+		// required=false : 값이 없어도 된다.
+		log.info("register post");
+		log.info("files : "+files.toString());
+		List<FileVO> fileList = null;
+		if(files[0].getSize()>0) {
+			fileList = fhd.uploadFiles(files);
+		}else {
+			log.info("파일이 없습니다.");
+			isOK = bsv.insert(bvo);
+			
+			if(isOK>0) {
+				reAttr.addFlashAttribute("msg_board_register", 1);
+			}else reAttr.addFlashAttribute("msg_board_register", 0);
+			return "redirect:/board/list";
+		}
+		
+		BoardDTO bdto = new BoardDTO(bvo, fileList);
+		isOK = bsv.insert(bdto);
+		
+		if(isOK>0) {
+			reAttr.addFlashAttribute("msg_board_register", 1);
+		}else reAttr.addFlashAttribute("msg_board_register", 0);
+		return "redirect:/board/list";
+	}
+	
+	@GetMapping("list")
+	public void listGet(Model model) {
+		List<BoardVO> list = bsv.list();
+		model.addAttribute("list", list);
+	}
+	
+	@GetMapping("detail")
+	public void detailGet(Model model, @RequestParam(name="bno")int bno) {
+		BoardVO bvo = bsv.selectOne(bno);
+		model.addAttribute("bvo", bvo);
+		List<FileVO> fileList = fdao.selectOne(bno);
+		model.addAttribute("fileList", fileList);
+	}
+	
+	@GetMapping("modify")
+	public void modifyGet(Model model, @RequestParam(name="bno")int bno) {
+		BoardVO bvo = bsv.selectOne(bno);
+		model.addAttribute("bvo", bvo);
+		List<FileVO> fileList = fdao.selectOne(bno);
+		model.addAttribute("fileList", fileList);
+	}
+	
+	@PostMapping("modify")
+	public String modifyPost(Model model, BoardVO bvo, RedirectAttributes reAttr,
+			@RequestParam(name="files", required = false)MultipartFile[] files) {
+//		isOK = bsv.update(bvo);
+//		log.info("isOK : "+(isOK>0?"성공":"실패"));
+		
+		log.info("files : "+files.toString());
+		List<FileVO> fileList = null;
+		if(files[0].getSize()>0) {
+			fileList = fhd.uploadFiles(files);
+		}else log.info("파일이 없습니다.");
+		BoardDTO bdto = new BoardDTO(bvo, fileList);
+		isOK = bsv.update(bdto);
+		
+		if(isOK>0) {
+			reAttr.addFlashAttribute("msg_modify_register", 1);
+		}else reAttr.addFlashAttribute("msg_modify_register", 0);
+		return "redirect:/board/detail?bno="+bvo.getBno();
+	}
+	
+	@GetMapping("delete")
+	public String deleteGet(@RequestParam(name="bno")int bno, RedirectAttributes reAttr) {
+		isOK = bsv.delete(bno);
+		log.info("isOK : "+(isOK>0?"성공":"실패"));
+		if(isOK>0) {
+			reAttr.addFlashAttribute("msg_delete_register", 1);
+		}else reAttr.addFlashAttribute("msg_delete_register", 0);
+		return "redirect:/board/list";
+	}
+	
+}

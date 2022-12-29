@@ -1,0 +1,85 @@
+package com.woojin.myapp.service;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import com.woojin.myapp.domain.BoardDTO;
+import com.woojin.myapp.domain.BoardVO;
+import com.woojin.myapp.domain.FileVO;
+import com.woojin.myapp.repository.BoardDAO;
+import com.woojin.myapp.repository.FileDAO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class BoardServiceImpl implements BoardService{
+	
+	@Inject
+	private BoardDAO bdao;
+	@Inject
+	private FileDAO fdao;
+	
+	@Override
+	public int insert(BoardVO bvo) {
+		return bdao.insert(bvo);
+	}
+
+	@Override
+	public List<BoardVO> list() {
+		// TODO Auto-generated method stub
+		return bdao.list();
+	}
+
+	@Override
+	public BoardVO selectOne(int bno) {
+		// TODO Auto-generated method stub
+		return bdao.selectOne(bno);
+	}
+
+	@Override
+	public int update(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return bdao.update(bvo);
+	}
+
+	@Override
+	public int delete(int bno) {
+		// TODO Auto-generated method stub
+		return bdao.delete(bno);
+	}
+
+	@Override
+	public int insert(BoardDTO bdto) {
+		int isOK = bdao.insert(bdto.getBvo());
+		if(isOK>0 && bdto.getFileList().size()>0) {
+			
+			int bno = bdao.selectOneBno(); // 방금 넣은 값의 bno
+			
+			for(FileVO fvo : bdto.getFileList()) {
+				fvo.setBno(bno);
+				log.info(fvo.toString());
+				isOK *= fdao.insert(fvo);
+			}
+			
+		}
+		return isOK;
+	}
+
+	@Override
+	public int update(BoardDTO bdto) {
+		int isOK = bdao.update(bdto.getBvo());
+		if(isOK>0 && bdto.getFileList().size()>0) {
+			for(FileVO fvo : bdto.getFileList()) {
+				fvo.setBno(bdto.getBvo().getBno());
+				log.info(fvo.toString());
+				isOK *= fdao.insert(fvo);
+			}
+		}
+		return isOK;
+	}
+
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.myProject.repository.BoardDAO">
+
+<insert id="insert" parameterType="com.ezen.myProject.domain.BoardVO">
+	insert into board (title, writer, content)
+	values (#{title}, #{writer}, #{content});
+</insert>
+
+<select id="list" resultType="com.ezen.myProject.domain.BoardVO">
+	select * from board;
+</select>
+
+<select id="selectOne" resultType="com.ezen.myProject.domain.BoardVO">
+	select * from board where bno=#{bno};
+</select>
+
+<update id="readCount">
+	update board set read_count=#{read_count} where bno=#{bno};
+</update>
+
+<update id="update">
+	update board set title=#{title}, content=#{content} where bno=#{bno};
+</update>
+
+<delete id="delete">
+	delete from board where bno=#{bno};
+</delete>
+
+<!-- <select id="totalCount" resultType="int">
+	select count(*)
+	from board;
+</select> -->
+
+
+<!-- <select id="pageList" resultType="com.ezen.myProject.domain.BoardVO">
+	select * from board limit #{pageStart}, #{qty};
+</select> -->
+
+ 
+<!-- 검색을 포함한 리스트 뽑아내기 -->
+<sql id="search">
+	<if test="type != null">
+		<trim prefix = "and " prefixOverrides="OR">
+			<foreach collection="typeToArray" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 't'.toString()">
+							title like concat('%',#{keyword},'%')
+						</when>
+						<when test="type == 'c'.toString()">
+							content like concat('%',#{keyword},'%')
+						</when>
+						<when test="type == 'w'.toString()">
+							writer like concat('%',#{keyword},'%')
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</if>
+</sql>
+
+<select id="pageList" parameterType="com.ezen.myProject.domain.PagingVO" resultType="com.ezen.myProject.domain.BoardVO">
+	select * from board where bno is not null
+	<include refid="search"></include>
+	limit #{pageStart}, #{qty}
+</select>
+
+<select id="totalCount" resultType="int">
+	select count(*) from board where bno is not null
+	<include refid="search"></include>
+</select>
+
+</mapper>

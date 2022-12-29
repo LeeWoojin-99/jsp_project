@@ -1,0 +1,13 @@
+package com.woojin.myapp.controller;
+
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequestMapping("/comment/*")
+@Controller
+public class CommentController {
+	
+	
+	
+}

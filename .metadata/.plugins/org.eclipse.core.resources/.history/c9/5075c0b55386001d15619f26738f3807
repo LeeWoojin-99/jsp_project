@@ -1,0 +1,12 @@
+package com.woojin.myapp.repository;
+
+import java.util.List;
+
+import com.woojin.myapp.domain.FileVO;
+
+public interface FileDAO {
+
+	int insert(List<FileVO> fileList);
+
+
+}

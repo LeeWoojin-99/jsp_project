@@ -1,0 +1,26 @@
+package com.woojin.myapp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.woojin.myapp.domain.MemberVO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequestMapping("/member/*")
+@Controller
+public class MemberController {
+
+	@GetMapping("register")
+	public void registerGet() {}
+
+	@PostMapping("register")
+	public String registerPost(MemberVO mvo) {
+		log.info(mvo.toString());
+		return "redirect:/";
+	}
+	
+}

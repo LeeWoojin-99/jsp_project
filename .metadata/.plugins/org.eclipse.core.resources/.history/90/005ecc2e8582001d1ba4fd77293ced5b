@@ -1,0 +1,11 @@
+package com.woojin.myapp.domain;
+
+public class MemberVO {
+	private String id;
+	private String pw;
+	private String nick_name;
+	private String reg_date;	
+	private String last_login;	
+	
+
+}

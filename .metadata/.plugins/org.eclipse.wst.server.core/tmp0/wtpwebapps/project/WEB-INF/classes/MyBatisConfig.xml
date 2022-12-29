@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.woojin.myapp.domain.BoardVO" alias="bvo"/>
+		<typeAlias type="com.woojin.myapp.domain.MemberVO" alias="mvo"/>
+		<typeAlias type="com.woojin.myapp.domain.PagingVO" alias="pvo"/>
+		<typeAlias type="com.woojin.myapp.domain.CommentVO" alias="cvo"/>
+		<typeAlias type="com.woojin.myapp.domain.FileVO" alias="fvo"/>
+	</typeAliases>
+
+</configuration>

@@ -1,0 +1,25 @@
+package com.woojin.myapp.service;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import com.woojin.myapp.domain.BoardVO;
+import com.woojin.myapp.repository.BoardDAO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+public class BoardServiceImpl implements BoardService{
+	
+	@Inject
+	private BoardDAO bdao;
+	
+	
+	@Override
+	public int insert(BoardVO bvo) {
+		return bdao.insert(bvo);
+	}
+
+}

@@ -1,0 +1,22 @@
+package com.woojin.myapp.repository;
+
+import java.util.List;
+
+import com.woojin.myapp.domain.BoardDTO;
+import com.woojin.myapp.domain.BoardVO;
+
+public interface BoardDAO {
+
+	int insert(BoardVO bvo);
+
+	List<BoardVO> list();
+
+	BoardVO selectOne(int bno);
+
+	int update(BoardVO bvo);
+
+	int delete(int bno);
+
+	int selectOneBno();
+
+}

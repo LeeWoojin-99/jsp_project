@@ -1,0 +1,14 @@
+package com.woojin.myapp.service;
+
+import com.woojin.myapp.domain.MemberVO;
+
+public class MemberService {
+	
+	private MemberDAO mdao;
+
+	public int insert(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

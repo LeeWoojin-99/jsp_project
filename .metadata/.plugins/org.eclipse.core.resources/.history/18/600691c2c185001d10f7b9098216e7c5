@@ -1,0 +1,6 @@
+document.getElementById("trigger").addEventListener("click", function(){
+    document.getElementById("files").click();
+    document.getElementById("fileZone").innerText = document.getElementById("files").value;
+})
+
+// 정규 표현식을 이용한 생성자 함수 만들기

@@ -1,0 +1,29 @@
+document.getElementById("comment_post_btn").onclick = function(){
+    comment_post_area = document.getElementById("comment_post_area");
+    cmtData = {
+        bno: bnoVal,
+        writer: comment_post_area.querySelector("label").innerText,
+        content: comment_post_area.querySelector("input").value
+    }
+    console.log(cmtData);
+    postPost(cmtData).then(result => {
+        if(result>0) alert("댓글 쓰기 성공");
+        
+    })
+}
+
+async function postPost(cmtData) {
+    try {
+        url = "/comment/";
+        config = {
+            method: "post",
+            headers: {"content-type' : 'application/json; charset=utf-8"},
+            body: JSON.stringify(cmtData)
+        }
+        response = await fetch(url, config);
+        result = response.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}

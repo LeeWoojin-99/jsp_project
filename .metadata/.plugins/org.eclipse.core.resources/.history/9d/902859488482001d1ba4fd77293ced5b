@@ -1,0 +1,12 @@
+package com.woojin.myapp.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequestMapping("/memberC/*")
+@Controller
+public class MemberController {
+	
+	
+	
+}

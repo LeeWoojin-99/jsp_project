@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Main</title>
+</head>
+<body>
+	<jsp:include page="../layout/header.jsp"></jsp:include>
+	
+	<div class="container">
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label">ID</label>
+			<input type="text" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label">Password</label>
+			<input type="text" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label">Nick Name</label>
+			<input type="text" class="form-control">
+		</div>
+		<div class="mb-3">
+			<button type="submit" class="btn btn-primary mb-3">Sign up</button>
+		</div>
+	</div>
+
+	<jsp:include page="../layout/footer.jsp"></jsp:include>
+</body>
+</html>

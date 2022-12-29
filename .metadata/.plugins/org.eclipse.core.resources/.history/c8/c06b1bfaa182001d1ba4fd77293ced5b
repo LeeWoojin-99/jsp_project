@@ -1,0 +1,10 @@
+package com.woojin.myapp.repository;
+
+import com.woojin.myapp.domain.BoardVO;
+import com.woojin.myapp.domain.MemberVO;
+
+public interface BoardDAO {
+
+	int insert(BoardVO bvo);
+
+}

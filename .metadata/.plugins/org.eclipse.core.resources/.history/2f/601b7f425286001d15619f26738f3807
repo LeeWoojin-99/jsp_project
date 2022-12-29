@@ -1,0 +1,6 @@
+package com.woojin.myapp.repository;
+
+public interface FileDAO {
+
+
+}

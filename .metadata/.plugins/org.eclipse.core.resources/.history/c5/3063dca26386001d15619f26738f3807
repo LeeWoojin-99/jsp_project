@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<!-- file 표현 -->
+<div class="accordion" id="accordionExample">
+	<c:forEach items="${fileList }" var="fvo" varStatus="varStatus">
+	  <div class="accordion-item" id="heading${varStatus.count }">
+	    <h2 class="accordion-header">
+	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${varStatus.count }" aria-expanded="true" aria-controls="collapse${varStatus.count }">
+			<c:choose>
+				<c:when test="${fvo.file_type > 0 }">
+					<img src="/upload/${fn:replace(fvo.save_dir, '\\', '/')}/${fvo.uuid}_th_${fvo.file_name}">
+				</c:when>
+			</c:choose>
+	      </button>
+	    </h2>
+	    <div id="collapse${varStatus.count }" class="accordion-collapse collapse" aria-labelledby="heading${varStatus.count }">
+	    	<div class="accordion-body">
+				<c:choose>
+     					<c:when test="${fvo.file_type > 0 }">
+						<img src="/upload/${fn:replace(fvo.save_dir, '\\', '/')}/${fvo.uuid}_${fvo.file_name}">
+					</c:when>
+				</c:choose>
+        	</div>
+	    </div>
+	  </div>
+	</c:forEach>
+</div>
+
+<%-- <div class="list-group">
+	<ul>
+		<c:forEach items="${fileList }" var="fvo">
+			<li class="list-group-item">
+				<c:choose>
+					<c:when test="${fvo.file_type > 0 }">
+						<img src="/upload/${fn:replace(fvo.save_dir, '\\', '/')}/${fvo.uuid}_th_${fvo.file_name}">
+					</c:when>
+				</c:choose>
+			</li>
+		</c:forEach>
+	</ul>
+</div> --%>

@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+	<script type="text/javascript">
+		const msg_member_register = "<c:out value='${msg_member_register}'/>";
+		const msg_login = "<c:out value='${msg_login}'/>";
+		const msg_board_register = "<c:out value='${msg_board_register}'/>";
+		const msg_modify_register = "<c:out value='${msg_modify_register}'/>";
+		const msg_delete_register = "<c:out value='${msg_delete_register}'/>";
+		if(msg_member_register == "0"){
+			alert("회원가입을 실패하였습니다.");
+		}else if(msg_member_register == "1"){
+			alert("회원가입을 성공하였습니다.");
+		}else if(msg_login == "0"){
+			alert("존재하지 않는 아이디입니다.");
+		}else if(msg_login == "1"){
+			alert("잘못된 비밀번호입니다.");
+		}else if(msg_login == "2"){
+			alert("<c:out value='${session.nick_name}'/>님의 로그인을 환영합니다.");
+		}else if(msg_board_register == "0"){
+			alert("글쓰기를 실패하였습니다.");
+		}else if(msg_board_register == "1"){
+			alert("글쓰기를 성공하였습니다.");
+		}else if(msg_modify_register == "0"){
+			alert("글수정을 실패하였습니다.");
+		}else if(msg_modify_register == "1"){
+			alert("글수정을 성공하였습니다.");
+		}else if(msg_delete_register == "0"){
+			alert("글삭제를 실패하였습니다.");
+		}else if(msg_delete_register == "1"){
+			alert("글삭제를 성공하였습니다.");
+		}
+	</script>
+
+</body>
+</html>

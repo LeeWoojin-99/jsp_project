@@ -1,0 +1,18 @@
+async function fileRemoveDelete(uuid){
+    try {
+        url = "/file/"+uuid;
+        config = {
+            method: "delete"
+        }
+        response = await fetch(url, config);
+        result = await response.text();
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function file_remove(e){
+    console.log(e.dataset.uuid);
+}

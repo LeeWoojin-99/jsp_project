@@ -1,0 +1,5 @@
+package com.woojin.myapp.domain;
+
+public class FileVO {
+
+}

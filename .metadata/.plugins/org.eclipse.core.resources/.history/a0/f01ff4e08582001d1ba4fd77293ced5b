@@ -1,0 +1,5 @@
+package com.woojin.myapp.service;
+
+public interface MemberService {
+
+}

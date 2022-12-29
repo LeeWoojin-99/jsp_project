@@ -1,0 +1,82 @@
+document.getElementById("comment_post_btn").onclick = function(){
+    comment_post_area = document.getElementById("comment_post_area");
+    cmtData = {
+        bno: bnoVal,
+        writer: comment_post_area.querySelector("label").innerText,
+        content: comment_post_area.querySelector("input").value
+    }
+    console.log(cmtData);
+    postPost(cmtData).then(result => {
+        if(result>0) alert("댓글 쓰기 성공");
+        commentList(bnoVal);
+    })
+}
+
+async function postPost(cmtData) {
+    try {
+        url = "/comment/";
+        config = {
+            method: "post",
+            headers: {"content-type" : "application/json; charset=utf-8"},
+            body: JSON.stringify(cmtData)
+        }
+        response = await fetch(url, config);
+        result = response.text();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function commentList(bno){
+    commentListGet(bno).then(result => {
+        spreadCommentList(result);
+    })
+}
+
+async function commentListGet(bno){
+    try {
+        const response = await fetch("/comment/"+bno);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function spreadCommentList(result){
+    if(result.length>0){
+        console.log(result.length+"개의 댓글이 있습니다.");
+        ul = document.getElementById("comments");
+        ul.innerHTML = "";
+
+        for(i=0; i<result.length; i++){
+            html = `<li class="list-group-item comment" data-cno="${result[i].cno}">`;
+            html += `<div class="writer">${result[i].writer}</div>`;
+            html += `<div class="mod_date">${result[i].mod_date}</div>`;
+            html += `<input type="text" class="form-control content" value="${result[i].content}">`;
+            html += `<div class="btn-group" role="group">`;
+            html += `<button type="button" class="btn btn-primary comment_modify">modify</button>`;
+            html += `<button type="button" class="btn btn-primary comment_remove">remove</button>`;
+            html += `</div>`;
+            html += `</li>`;
+            ul.innerHTML += html;
+        }
+    }else{
+        console.log("댓글이 없습니다.");
+    }
+}
+
+for(i of document.getElementsByClassName("comment_modify")){
+    i.onclick = function(e){
+        console.log(e);
+        li = e.target.closest("li");
+        cmtData = {
+            bno: bnoVal,
+            cno: li.dataset.cno,
+            writer: li.querySelector(".writer"),
+            content: li.querySelector(".content")
+        }
+        console.log(cmtData);
+    }
+}
